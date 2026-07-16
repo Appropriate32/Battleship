@@ -1,7 +1,8 @@
 {
-  "name": "todo-list",
+  "name": "battleship",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "start": "webpack serve --open --config webpack.dev.js",
