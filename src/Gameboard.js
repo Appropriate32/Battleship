@@ -5,5 +5,12 @@ class Gameboard {
     this.grid = Array.from({ length: 10 }, () => Array(10).fill(null));
   }
 
-  placeShip(x, y, length) {}
+  placeShip(x, y, length) {
+    const shipObj = new Ship(length);
+    for (let i = 0; i < length; i++) {
+      this.grid[x++][y] = shipObj;
+    }
+  }
 }
+
+export default Gameboard;
