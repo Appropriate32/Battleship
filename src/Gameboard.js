@@ -3,6 +3,7 @@ import Ship from "./Ship.js";
 class Gameboard {
   constructor() {
     this.grid = Array.from({ length: 10 }, () => Array(10).fill(null));
+    this.pastAttacks = [];
   }
 
   placeShip(x, y, length, direction) {
@@ -36,12 +37,16 @@ class Gameboard {
   }
 
   receiveAttack(x, y) {
+    if (this.pastAttacks.includes(`${x},${y}`)) return;
+
     if (this.grid[x][y] !== null) {
       this.grid[x][y].hit();
+      this.pastAttacks.push(`${x},${y}`);
       return;
     }
 
-    return [x, y];
+    this.grid[x][y] = "miss";
+    this.pastAttacks.push(`${x},${y}`);
   }
 }
 

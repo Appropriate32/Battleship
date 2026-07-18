@@ -107,11 +107,11 @@ describe("receiveAttack method", () => {
     expect(board.grid[0][0].numberOfHits).toBe(1);
   });
 
-  test("ship should be hit twice and its number of hits should increase by 2", () => {
+  test("ship should be hit twice in the same place and its number of hits should only increase by 1", () => {
     board.receiveAttack(0, 0);
     board.receiveAttack(0, 0);
 
-    expect(board.grid[0][0].numberOfHits).toBe(2);
+    expect(board.grid[0][0].numberOfHits).toBe(1);
   });
 
   test("same ship should be hit twice in two different coordinates and its number of hits should increase by 2", () => {
@@ -121,7 +121,9 @@ describe("receiveAttack method", () => {
     expect(board.grid[0][0].numberOfHits).toBe(2);
   });
 
-  test("attack should miss on 5, 4 and missed coordinates returned 5, 4", () => {
-    expect(board.receiveAttack(5, 4)).toEqual([5, 4]);
+  test("attack should miss on 5, 4 and missed coordinates recorded 5, 4", () => {
+    board.receiveAttack(5, 4);
+
+    expect(board.grid[5][4]).toBe("miss");
   });
 });
