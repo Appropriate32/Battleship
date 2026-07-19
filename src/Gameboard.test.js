@@ -127,3 +127,29 @@ describe("receiveAttack method", () => {
     expect(board.grid[5][4]).toBe("miss");
   });
 });
+
+describe("checkAllSunk method", () => {
+  let board;
+
+  beforeEach(() => {
+    board = new Gameboard();
+  });
+
+  test("no ship has sunk, should return false", () => {
+    board.placeShip(0, 1, 3, "horizontal");
+    expect(board.checkAllSunk()).toBe(false);
+  });
+
+  test("one ship on the board which has sunk, should return true", () => {
+    board.placeShip(0, 2, 3, "horizontal");
+    board.receiveAttack(0, 2);
+    board.receiveAttack(1, 2);
+    board.receiveAttack(2, 2);
+
+    expect(board.checkAllSunk()).toBe(true);
+  });
+
+  test("no ships, should throw an error", () => {
+    expect(() => board.checkAllSunk()).toThrow();
+  });
+});
