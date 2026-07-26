@@ -91,6 +91,16 @@ describe("placeShip method", () => {
     expect(board.grid[0][7]).toBeInstanceOf(Ship);
     expect(board.grid[0][6]).toBeInstanceOf(Ship);
   });
+
+  test("Ship should not be able to be placed on an already occupied coordinate (horizontal)", () => {
+    board.placeShip(0, 3, 3, "horizontal");
+    expect(() => board.placeShip(1, 3, 3, "horizontal")).toThrow();
+  });
+
+  test("Ship should not be able to be placed on an already occupied coordinate (vertical)", () => {
+    board.placeShip(0, 3, 3, "vertical");
+    expect(() => board.placeShip(0, 4, 3, "vertical")).toThrow();
+  });
 });
 
 describe("receiveAttack method", () => {
