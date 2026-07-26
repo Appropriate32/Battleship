@@ -8,10 +8,21 @@ class Player {
 
   attack(x, y, enemyBoard) {
     // For real player
-    enemyBoard.receiveAttack(x, y);
+    let result = enemyBoard.receiveAttack(x, y);
+    return result;
   }
 
-  randomAttack(enemyBoard) {} // For computer player
+  randomAttack(enemyBoard) {
+    // For computer player
+    let duplicate = "duplicate";
+
+    while (duplicate === "duplicate") {
+      let randomOne = Math.floor(Math.random() * 10);
+      let randomTwo = Math.floor(Math.random() * 10);
+
+      duplicate = enemyBoard.receiveAttack(randomOne, randomTwo);
+    }
+  }
 }
 
 export default Player;

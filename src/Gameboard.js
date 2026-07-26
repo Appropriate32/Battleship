@@ -39,7 +39,7 @@ class Gameboard {
   }
 
   receiveAttack(x, y) {
-    if (this.pastAttacks.includes(`${x},${y}`)) return;
+    if (this.pastAttacks.includes(`${x},${y}`)) return "duplicate";
 
     if (this.grid[x][y] !== null) {
       this.grid[x][y].hit();
