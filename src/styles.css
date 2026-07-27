@@ -4,7 +4,52 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family:
-    "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
-    Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  padding: 1rem;
+}
+
+.title {
+  text-align: center;
+  color: red;
+  transition: ease 0.3s letter-spacing;
+}
+
+.title:hover {
+  letter-spacing: 4px;
+}
+
+.boards {
+  margin: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.board-one,
+.board-two {
+  border: 1px solid black;
+  height: 500px;
+  width: 500px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.board-cell {
+  border: 1px solid black;
+  transition: ease 0.5s background-color;
+}
+
+.board-cell:hover {
+  background-color: rgba(86, 84, 84, 0.728);
 }
