@@ -2,34 +2,42 @@ import "./styles.css";
 import "nes.css/css/nes.min.css";
 import Gameboard from "./Game-Logic/Gameboard.js";
 import Player from "./Game-Logic/Player.js";
+import DOMControl from "./DOMControl.js";
 
-class DOMControl {
+class GameController {
   constructor() {
-    this.boardOne = document.querySelector(".board-one");
-    this.boardTwo = document.querySelector(".board-two");
+    this.playerOne = new Player("human");
+    this.playerTwo = new Player("computer");
+    this.ui = new DOMControl();
+
+    this.ui.setHandoff((x, y) => {
+      this.playMove(x, y);
+    });
   }
 
-  renderBoard(board) {
-    board.innerHTML = "";
-    for (let i = 0; i < 100; i++) {
-      const cell = document.createElement("div");
-      cell.classList.add("nes-pointer", "board-cell");
+  startGame() {
+    this.playerOne.board.placeShip(4, 5, 3, "horizontal");
+    this.playerOne.board.placeShip(0, 5, 3, "horizontal");
+    this.playerOne.board.placeShip(6, 0, 3, "vertical");
+    this.playerOne.board.placeShip(7, 0, 3, "vertical");
+    this.playerOne.board.placeShip(2, 7, 3, "horizontal");
 
-      const x = i % 10;
-      const y = Math.floor(i / 10);
+    this.playerTwo.board.placeShip(4, 5, 3, "horizontal");
+    this.playerTwo.board.placeShip(0, 5, 3, "horizontal");
+    this.playerTwo.board.placeShip(6, 0, 3, "vertical");
+    this.playerTwo.board.placeShip(7, 0, 3, "vertical");
+    this.playerTwo.board.placeShip(2, 7, 3, "horizontal");
 
-      cell.dataset.x = x;
-      cell.dataset.y = y;
+    this.playerOne.attack(6, 6, this.playerTwo.board);
 
-      board.appendChild(cell);
-    }
+    this.ui.initializeGameUI(this.playerOne.board, this.playerTwo.board);
   }
 
-  initializeGameUI() {
-    this.renderBoard(this.boardOne);
-    this.renderBoard(this.boardTwo);
+  playMove(x, y) {
+    this.playerTwo.board.grid[x][y] = "miss";
+    this.ui.renderBoard(this.ui.boardTwo, this.playerTwo.board);
   }
 }
 
-const dom = new DOMControl();
-dom.initializeGameUI();
+const game = new GameController();
+game.startGame();
