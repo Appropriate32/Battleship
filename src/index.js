@@ -9,9 +9,10 @@ class GameController {
     this.playerOne = new Player("human");
     this.playerTwo = new Player("computer");
     this.ui = new DOMControl();
+    this.currentTurn = "player-1";
 
-    this.ui.setHandoff((x, y) => {
-      this.playMove(x, y);
+    this.ui.setHandoff((x, y, currentTurn) => {
+      this.playMove(x, y, currentTurn);
     });
   }
 
@@ -28,14 +29,24 @@ class GameController {
     this.playerTwo.board.placeShip(7, 0, 3, "vertical");
     this.playerTwo.board.placeShip(2, 7, 3, "horizontal");
 
-    this.playerOne.attack(6, 6, this.playerTwo.board);
-
     this.ui.initializeGameUI(this.playerOne.board, this.playerTwo.board);
   }
 
-  playMove(x, y) {
-    this.playerTwo.board.grid[x][y] = "miss";
-    this.ui.renderBoard(this.ui.boardTwo, this.playerTwo.board);
+  playMove(x, y, currentTurn) {
+    if (currentTurn === "player-1" && currentTurn === this.currentTurn) {
+      this.playerOne.attack(x, y, this.playerTwo.board);
+      this.ui.renderBoard(this.ui.boardTwo, this.playerTwo.board);
+      this.switchTurn();
+    } else if (currentTurn === "player-2" && currentTurn === this.currentTurn) {
+      this.playerTwo.attack(x, y, this.playerOne.board);
+      this.ui.renderBoard(this.ui.boardOne, this.playerOne.board);
+      this.switchTurn();
+    }
+  }
+
+  switchTurn() {
+    if (this.currentTurn === "player-1") this.currentTurn = "player-2";
+    else this.currentTurn = "player-1";
   }
 }
 

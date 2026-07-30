@@ -22,7 +22,18 @@ class DOMControl {
         const y = e.target.dataset.y;
 
         if (this.onCellClicked) {
-          this.onCellClicked(x, y);
+          this.onCellClicked(x, y, "player-1");
+        }
+      }
+    });
+
+    this.boardOne.addEventListener("click", (e) => {
+      if (e.target.classList.contains("board-cell")) {
+        const x = e.target.dataset.x;
+        const y = e.target.dataset.y;
+
+        if (this.onCellClicked) {
+          this.onCellClicked(x, y, "player-2");
         }
       }
     });
@@ -35,7 +46,7 @@ class DOMControl {
       cell.classList.add("nes-pointer", "board-cell");
 
       const x = i % 10;
-      const y = Math.floor(i / 10);
+      const y = 9 - Math.floor(i / 10);
 
       cell.dataset.x = x;
       cell.dataset.y = y;
@@ -47,6 +58,8 @@ class DOMControl {
       } else if (cellData === "miss") {
         cell.classList.add("miss");
         cell.textContent = "X";
+      } else if (cellData === "attacked") {
+        cell.classList.add("sunk");
       }
       board.appendChild(cell);
     }

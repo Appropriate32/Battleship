@@ -75,6 +75,7 @@ class Gameboard {
     if (this.grid[x][y] !== null) {
       this.grid[x][y].hit();
       this.pastAttacks.push(`${x},${y}`);
+      this.grid[x][y] = "attacked";
       return;
     }
 

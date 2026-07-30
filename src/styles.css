@@ -77,3 +77,7 @@ header {
   align-items: center;
   font-size: 1.8rem;
 }
+
+.sunk {
+  background-color: gray;
+}
