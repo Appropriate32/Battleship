@@ -37,7 +37,17 @@ class GameController {
       this.playerOne.attack(x, y, this.playerTwo.board);
       this.ui.renderBoard(this.ui.boardTwo, this.playerTwo.board);
       this.switchTurn();
-    } else if (currentTurn === "player-2" && currentTurn === this.currentTurn) {
+      if (this.playerTwo.playerType === "computer") {
+        setTimeout(() => {
+          this.computerAttack();
+        }, 1500);
+        return;
+      }
+    } else if (
+      currentTurn === "player-2" &&
+      currentTurn === this.currentTurn &&
+      this.playerTwo.playerType === "human"
+    ) {
       this.playerTwo.attack(x, y, this.playerOne.board);
       this.ui.renderBoard(this.ui.boardOne, this.playerOne.board);
       this.switchTurn();
@@ -47,6 +57,12 @@ class GameController {
   switchTurn() {
     if (this.currentTurn === "player-1") this.currentTurn = "player-2";
     else this.currentTurn = "player-1";
+  }
+
+  computerAttack() {
+    this.playerTwo.randomAttack(this.playerOne.board);
+    this.ui.renderBoard(this.ui.boardOne, this.playerOne.board);
+    this.switchTurn();
   }
 }
 
