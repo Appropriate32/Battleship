@@ -43,6 +43,7 @@ header {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
+  background-color: grey;
 }
 
 .board-cell {
@@ -80,4 +81,70 @@ header {
 
 .sunk {
   background-color: gray;
+}
+
+.game-buttons {
+  display: flex;
+  gap: 2rem;
+}
+
+.body-stuff {
+  display: flex;
+  gap: 1rem;
+}
+
+.ships-container {
+  margin-top: 20%;
+  height: 100%;
+  width: 40%;
+  border: 1px solid black;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.inner-container {
+  display: flex;
+  transition: 0.2s ease transform;
+  margin-right: 1rem;
+}
+
+.inner-container:hover,
+.clicked {
+  transform: translateY(10px);
+  transform: scale(1.2);
+}
+
+.ship-4,
+.ship-3,
+.ship-2,
+.ship-1 {
+  display: flex;
+}
+
+.ships-container .ship {
+  width: 10px;
+  height: 10px;
+  transition: none;
+}
+
+.ships-container .ship:hover {
+  transform: none;
+}
+
+.ships-container span {
+  margin-right: 1rem;
+}
+
+.horizontal,
+.vertical {
+  transition: 1s ease font-size;
+  display: inline-block;
+}
+
+.horizontal:hover,
+.vertical:hover {
+  transform: translateY(10px);
+  transform: scale(1.2);
 }

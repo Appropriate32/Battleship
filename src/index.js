@@ -14,22 +14,23 @@ class GameController {
     this.ui.setHandoff((x, y, currentTurn) => {
       this.playMove(x, y, currentTurn);
     });
+
+    this.ui.setShipPlaceHandoff((length, orientation, x, y) => {
+      this.setPlacement(length, orientation, x, y);
+    });
   }
 
   startGame() {
-    this.playerOne.board.placeShip(4, 5, 3, "horizontal");
-    this.playerOne.board.placeShip(0, 5, 3, "horizontal");
-    this.playerOne.board.placeShip(6, 0, 3, "vertical");
-    this.playerOne.board.placeShip(7, 0, 3, "vertical");
-    this.playerOne.board.placeShip(2, 7, 3, "horizontal");
-
-    this.playerTwo.board.placeShip(4, 5, 3, "horizontal");
-    this.playerTwo.board.placeShip(0, 5, 3, "horizontal");
-    this.playerTwo.board.placeShip(6, 0, 3, "vertical");
-    this.playerTwo.board.placeShip(7, 0, 3, "vertical");
-    this.playerTwo.board.placeShip(2, 7, 3, "horizontal");
-
     this.ui.initializeGameUI(this.playerOne.board, this.playerTwo.board);
+  }
+
+  setPlacement(length, orientation, x, y) {
+    try {
+      this.playerOne.board.placeShip(x, y, length, orientation);
+      this.ui.renderBoard(this.ui.boardOne, this.playerOne.board);
+    } catch (er) {
+      console.log(er);
+    }
   }
 
   playMove(x, y, currentTurn) {

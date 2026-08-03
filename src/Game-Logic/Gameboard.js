@@ -40,6 +40,10 @@ class Gameboard {
       }
     }
 
+    if (direction === null) {
+      throw new Error("no direction provided");
+    }
+
     this.shipList.push(shipObj);
     if (direction === "vertical") {
       if (y + (length - 1) > 9) {
