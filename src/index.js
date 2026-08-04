@@ -73,7 +73,8 @@ class GameController {
       currentTurn === this.currentTurn &&
       this.gameStartFlag
     ) {
-      this.playerOne.attack(x, y, this.playerTwo.board);
+      let result = this.playerOne.attack(x, y, this.playerTwo.board);
+      if (result === "duplicate") return;
       this.ui.renderBoard(this.ui.boardTwo, this.playerTwo.board);
       this.switchTurn();
       if (this.playerTwo.playerType === "computer") {

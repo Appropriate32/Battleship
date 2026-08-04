@@ -85,6 +85,7 @@ class Gameboard {
 
     this.grid[x][y] = "miss";
     this.pastAttacks.push(`${x},${y}`);
+    return "miss";
   }
 
   checkAllSunk() {
