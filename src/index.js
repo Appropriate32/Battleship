@@ -10,6 +10,7 @@ class GameController {
     this.playerTwo = new Player("computer");
     this.ui = new DOMControl();
     this.currentTurn = "player-1";
+    this.gameStartFlag = false;
 
     this.ui.setHandoff((x, y, currentTurn) => {
       this.playMove(x, y, currentTurn);
@@ -18,6 +19,14 @@ class GameController {
     this.ui.setShipPlaceHandoff((length, orientation, x, y) => {
       this.setPlacement(length, orientation, x, y);
     });
+
+    this.ui.setPlayFlagHandoff(() => {
+      this.setGameFlag();
+    });
+  }
+
+  setGameFlag() {
+    this.gameStartFlag = true;
   }
 
   startGame() {
@@ -34,7 +43,11 @@ class GameController {
   }
 
   playMove(x, y, currentTurn) {
-    if (currentTurn === "player-1" && currentTurn === this.currentTurn) {
+    if (
+      currentTurn === "player-1" &&
+      currentTurn === this.currentTurn &&
+      this.gameStartFlag
+    ) {
       this.playerOne.attack(x, y, this.playerTwo.board);
       this.ui.renderBoard(this.ui.boardTwo, this.playerTwo.board);
       this.switchTurn();

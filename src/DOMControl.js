@@ -16,7 +16,7 @@ class DOMControl {
 
     this.onCellClicked = null;
     this.onShipPlace = null;
-    this.placeClicked = null;
+    this.onPlayClicked = null;
 
     this.spanOptions.forEach((spanOption) => {
       spanOption.addEventListener("click", () => {
@@ -58,14 +58,9 @@ class DOMControl {
     });
 
     this.playButton.addEventListener("click", () => {
-      if (this.gameboardOne && this.gameboardTwo && this.placeClicked) {
-        this.renderBoard(this.boardOne, this.gameboardOne);
-        this.renderBoard(this.boardTwo, this.gameboardTwo);
+      if (this.gameboardOne && this.gameboardTwo) {
+        if (this.onPlayClicked) this.onPlayClicked();
       }
-    });
-
-    this.placeButton.addEventListener("click", () => {
-      this.placeClicked = true;
     });
 
     this.boardTwo.addEventListener("click", (e) => {
@@ -150,6 +145,10 @@ class DOMControl {
 
   setShipPlaceHandoff(callback) {
     this.onShipPlace = callback;
+  }
+
+  setPlayFlagHandoff(callback) {
+    this.onPlayClicked = callback;
   }
 }
 
