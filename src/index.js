@@ -11,6 +11,10 @@ class GameController {
     this.ui = new DOMControl();
     this.currentTurn = "player-1";
     this.gameStartFlag = false;
+    this.shipCountFour = { count: 0 };
+    this.shipCountThree = { count: 0 };
+    this.shipCountTwo = { count: 0 };
+    this.shipCountOne = { count: 0 };
 
     this.ui.setHandoff((x, y, currentTurn) => {
       this.playMove(x, y, currentTurn);
@@ -26,7 +30,13 @@ class GameController {
   }
 
   setGameFlag() {
-    this.gameStartFlag = true;
+    if (
+      this.shipCountFour.count >= 2 &&
+      this.shipCountThree.count >= 2 &&
+      this.shipCountTwo.count >= 2 &&
+      this.shipCountOne.count >= 2
+    )
+      this.gameStartFlag = true;
   }
 
   startGame() {
@@ -35,10 +45,25 @@ class GameController {
 
   setPlacement(length, orientation, x, y) {
     try {
-      this.playerOne.board.placeShip(x, y, length, orientation);
-      this.ui.renderBoard(this.ui.boardOne, this.playerOne.board);
+      if (length === 4) {
+        this.shipPlace(this.shipCountFour, x, y, length, orientation);
+      } else if (length === 3) {
+        this.shipPlace(this.shipCountThree, x, y, length, orientation);
+      } else if (length === 2) {
+        this.shipPlace(this.shipCountTwo, x, y, length, orientation);
+      } else if (length === 1) {
+        this.shipPlace(this.shipCountOne, x, y, length, orientation);
+      }
     } catch (er) {
       console.log(er);
+    }
+  }
+
+  shipPlace(shipCount, x, y, length, orientation) {
+    if (shipCount.count < 2) {
+      this.playerOne.board.placeShip(x, y, length, orientation);
+      this.ui.renderBoard(this.ui.boardOne, this.playerOne.board);
+      shipCount.count++;
     }
   }
 
