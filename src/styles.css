@@ -126,6 +126,7 @@ header {
 .ship-2,
 .ship-1 {
   display: flex;
+  gap: 1rem;
 }
 
 .ships-container .ship {
@@ -139,8 +140,21 @@ header {
 }
 
 .ships-container span {
-  margin-right: 1rem;
   white-space: nowrap;
+  font-size: 1.2rem;
+}
+
+.selection-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.ship-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .horizontal,
@@ -155,12 +169,10 @@ header {
   transform: scale(1.2);
 }
 
-/* Utility class to toggle the modal */
 .hidden {
   display: none !important;
 }
 
-/* Darkens the rest of the screen and centers the modal */
 .winner-overlay {
   position: fixed;
   top: 0;
@@ -171,10 +183,9 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Keeps it on top of the grid and buttons */
+  z-index: 1000;
 }
 
-/* The actual victory box */
 .winner-modal {
   background-color: white;
   border: 4px solid black;
@@ -183,11 +194,9 @@ header {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  /* Chunky retro drop-shadow */
   box-shadow: 12px 12px 0px rgba(0, 0, 0, 1);
 }
 
-/* Styling the text to pop */
 .winner-modal h2 {
   font-size: 2.5rem;
   margin: 0;

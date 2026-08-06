@@ -15,13 +15,11 @@ class Gameboard {
     if (direction === "vertical") {
       if (y + (length - 1) > 9) {
         for (let i = 0; i < length; i++) {
-          if (this.grid[x][tempY--] !== null)
-            throw new Error("Ship already present");
+          if (this.grid[x][tempY--] !== null) return "Ship already present";
         }
       } else {
         for (let i = 0; i < length; i++) {
-          if (this.grid[x][tempY++] !== null)
-            throw new Error("Ship already present");
+          if (this.grid[x][tempY++] !== null) return "Ship already present";
         }
       }
     }
@@ -29,13 +27,11 @@ class Gameboard {
     if (direction === "horizontal") {
       if (x + (length - 1) > 9) {
         for (let i = 0; i < length; i++) {
-          if (this.grid[tempX--][y] !== null)
-            throw new Error("Ship already present");
+          if (this.grid[tempX--][y] !== null) return "Ship already present";
         }
       } else {
         for (let i = 0; i < length; i++) {
-          if (this.grid[tempX++][y] !== null)
-            throw new Error("Ship already present");
+          if (this.grid[tempX++][y] !== null) return "Ship already present";
         }
       }
     }
@@ -101,7 +97,5 @@ class Gameboard {
     return true;
   }
 }
-
-let board = new Gameboard();
 
 export default Gameboard;

@@ -1,6 +1,5 @@
 import "./styles.css";
 import "nes.css/css/nes.min.css";
-import Gameboard from "./Game-Logic/Gameboard.js";
 import Player from "./Game-Logic/Player.js";
 import DOMControl from "./DOMControl.js";
 
@@ -20,12 +19,18 @@ class GameController {
       this.playMove(x, y, currentTurn);
     });
 
-    this.ui.setShipPlaceHandoff((length, orientation, x, y) => {
-      this.setPlacement(length, orientation, x, y);
-    });
+    this.ui.setShipPlaceHandoff(
+      (length, orientation, x, y, board, displayBoard) => {
+        this.setPlacement(length, orientation, x, y, board, displayBoard);
+      },
+    );
 
     this.ui.setPlayFlagHandoff(() => {
       this.setGameFlag();
+    });
+
+    this.ui.setShuffleHandoff((board, displayBoard) => {
+      this.shufflePlacement(board, displayBoard);
     });
   }
 
@@ -45,28 +50,66 @@ class GameController {
     this.ui.initializeGameUI(this.playerOne.board, this.playerTwo.board);
   }
 
-  setPlacement(length, orientation, x, y) {
+  setPlacement(length, orientation, x, y, board, displayBoard) {
+    let result;
     try {
       if (length === 4) {
-        this.shipPlace(this.shipCountFour, x, y, length, orientation);
+        result = this.shipPlace(
+          this.shipCountFour,
+          x,
+          y,
+          length,
+          orientation,
+          board,
+          displayBoard,
+        );
       } else if (length === 3) {
-        this.shipPlace(this.shipCountThree, x, y, length, orientation);
+        result = this.shipPlace(
+          this.shipCountThree,
+          x,
+          y,
+          length,
+          orientation,
+          board,
+          displayBoard,
+        );
       } else if (length === 2) {
-        this.shipPlace(this.shipCountTwo, x, y, length, orientation);
+        result = this.shipPlace(
+          this.shipCountTwo,
+          x,
+          y,
+          length,
+          orientation,
+          board,
+          displayBoard,
+        );
       } else if (length === 1) {
-        this.shipPlace(this.shipCountOne, x, y, length, orientation);
+        result = this.shipPlace(
+          this.shipCountOne,
+          x,
+          y,
+          length,
+          orientation,
+          board,
+          displayBoard,
+        );
       }
+
+      return result;
     } catch (er) {
       console.log(er);
     }
   }
 
-  shipPlace(shipCount, x, y, length, orientation) {
+  shipPlace(shipCount, x, y, length, orientation, board, displayBoard) {
+    let result = "";
     if (shipCount.count < 2) {
-      this.playerOne.board.placeShip(x, y, length, orientation);
-      this.ui.renderBoard(this.ui.boardOne, this.playerOne.board);
+      result = board.placeShip(x, y, length, orientation);
+      this.ui.renderBoard(displayBoard, board);
       shipCount.count++;
     }
+
+    return result;
   }
 
   playMove(x, y, currentTurn) {
@@ -108,6 +151,49 @@ class GameController {
     this.playerTwo.randomAttack(this.playerOne.board);
     this.ui.renderBoard(this.ui.boardOne, this.playerOne.board);
     this.switchTurn();
+  }
+
+  shufflePlacement(player, displayBoard) {
+    for (let shipNum = 4; shipNum > 0; shipNum--) {
+      for (let i = 0; i < 2; i++) {
+        let randomX = Math.floor(Math.random() * 10);
+        let randomY = Math.floor(Math.random() * 10);
+        let orientation;
+        let orientationDecider = Math.round(Math.random());
+        if (orientationDecider === 0) {
+          orientation = "horizontal";
+        } else if (orientationDecider === 1) {
+          orientation = "vertical";
+        }
+
+        let result = this.setPlacement(
+          shipNum,
+          orientation,
+          randomX,
+          randomY,
+          player,
+          displayBoard,
+        );
+        while (result === "Ship already present") {
+          randomX = Math.floor(Math.random() * 10);
+          randomY = Math.floor(Math.random() * 10);
+          orientationDecider = Math.round(Math.random());
+          if (orientationDecider === 0) {
+            orientation = "horizontal";
+          } else if (orientationDecider === 1) {
+            orientation = "vertical";
+          }
+          result = this.setPlacement(
+            shipNum,
+            orientation,
+            randomX,
+            randomY,
+            player,
+            displayBoard,
+          );
+        }
+      }
+    }
   }
 
   checkWinner(attacker, receiver) {

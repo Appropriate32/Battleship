@@ -20,6 +20,7 @@ class DOMControl {
     this.onCellClicked = null;
     this.onShipPlace = null;
     this.onPlayClicked = null;
+    this.onShuffleClicked = null;
 
     this.spanOptions.forEach((spanOption) => {
       spanOption.addEventListener("click", () => {
@@ -65,6 +66,16 @@ class DOMControl {
         if (this.onPlayClicked) {
           this.onPlayClicked();
         }
+
+        if (this.onShuffleClicked) {
+          this.onShuffleClicked(this.gameboardTwo, this.boardTwo);
+        }
+      }
+    });
+
+    this.shuffleButton.addEventListener("click", () => {
+      if (this.onShuffleClicked) {
+        this.onShuffleClicked(this.gameboardOne, this.boardOne);
       }
     });
 
@@ -89,7 +100,14 @@ class DOMControl {
         }
 
         if (this.onShipPlace) {
-          this.onShipPlace(this.selectedLength, this.selectedOrientation, x, y);
+          this.onShipPlace(
+            this.selectedLength,
+            this.selectedOrientation,
+            x,
+            y,
+            this.gameboardOne,
+            this.boardOne,
+          );
         }
       }
     });
@@ -162,6 +180,10 @@ class DOMControl {
 
   setPlayFlagHandoff(callback) {
     this.onPlayClicked = callback;
+  }
+
+  setShuffleHandoff(callback) {
+    this.onShuffleClicked = callback;
   }
 }
 
