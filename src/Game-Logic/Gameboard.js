@@ -7,6 +7,11 @@ class Gameboard {
     this.shipList = [];
   }
 
+  resetBoard() {
+    this.grid = Array.from({ length: 10 }, () => Array(10).fill(null));
+    this.shipList = [];
+  }
+
   placeShip(x, y, length, direction) {
     const shipObj = new Ship(length);
     let tempY = y;

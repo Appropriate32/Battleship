@@ -8,6 +8,7 @@ class DOMControl {
     this.innerContainers = document.querySelectorAll(".inner-container");
     this.spanOptions = document.querySelectorAll(".span-option");
     this.winnerText = document.querySelector("#winner-text");
+    this.winnerOverlay = document.querySelector("#winner-overlay");
 
     this.alreadyClickedContainers = [];
     this.alreadyClickedSpans = [];
@@ -68,8 +69,12 @@ class DOMControl {
         }
 
         if (this.onShuffleClicked) {
+          console.log("Hellooo, im shuffling this shi for player 2");
           this.onShuffleClicked(this.gameboardTwo, this.boardTwo);
         }
+
+        this.playButton.style.display = "none";
+        this.shuffleButton.style.display = "none";
       }
     });
 
@@ -168,6 +173,7 @@ class DOMControl {
 
   displayWinner(player) {
     this.winnerText.textContent = `${player} Wins!`;
+    this.winnerOverlay.classList.remove("hidden");
   }
 
   setHandoff(callback) {

@@ -105,8 +105,11 @@ class GameController {
     let result = "";
     if (shipCount.count < 2) {
       result = board.placeShip(x, y, length, orientation);
-      this.ui.renderBoard(displayBoard, board);
-      shipCount.count++;
+
+      if (result !== "Ship already present") {
+        this.ui.renderBoard(displayBoard, board);
+        shipCount.count++;
+      }
     }
 
     return result;
@@ -153,7 +156,14 @@ class GameController {
     this.switchTurn();
   }
 
-  shufflePlacement(player, displayBoard) {
+  shufflePlacement(board, displayBoard) {
+    board.resetBoard();
+
+    this.shipCountFour.count = 0;
+    this.shipCountThree.count = 0;
+    this.shipCountTwo.count = 0;
+    this.shipCountOne.count = 0;
+
     for (let shipNum = 4; shipNum > 0; shipNum--) {
       for (let i = 0; i < 2; i++) {
         let randomX = Math.floor(Math.random() * 10);
@@ -171,7 +181,7 @@ class GameController {
           orientation,
           randomX,
           randomY,
-          player,
+          board,
           displayBoard,
         );
         while (result === "Ship already present") {
@@ -188,7 +198,7 @@ class GameController {
             orientation,
             randomX,
             randomY,
-            player,
+            board,
             displayBoard,
           );
         }
@@ -197,7 +207,9 @@ class GameController {
   }
 
   checkWinner(attacker, receiver) {
+    console.log("Just entered checkWinner");
     if (receiver.board.checkAllSunk()) {
+      console.log("All sunk is true!");
       this.ui.displayWinner(attacker.playerType);
     }
   }
