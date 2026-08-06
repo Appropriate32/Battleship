@@ -28,7 +28,6 @@ header {
 }
 
 .boards {
-  margin: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,7 +38,9 @@ header {
 .board-two {
   border: 1px solid black;
   height: 500px;
-  width: 500px;
+  width: 30vw;
+  max-width: 450px;
+  aspect-ratio: 1 / 1;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
@@ -90,18 +91,22 @@ header {
 
 .body-stuff {
   display: flex;
-  gap: 1rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+  padding: 1rem;
 }
 
 .ships-container {
-  margin-top: 20%;
-  height: 100%;
-  width: 40%;
+  min-width: 280px;
   border: 1px solid black;
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1rem;
 }
 
 .inner-container {
@@ -135,6 +140,7 @@ header {
 
 .ships-container span {
   margin-right: 1rem;
+  white-space: nowrap;
 }
 
 .horizontal,
@@ -147,4 +153,47 @@ header {
 .vertical:hover {
   transform: translateY(10px);
   transform: scale(1.2);
+}
+
+/* Utility class to toggle the modal */
+.hidden {
+  display: none !important;
+}
+
+/* Darkens the rest of the screen and centers the modal */
+.winner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Keeps it on top of the grid and buttons */
+}
+
+/* The actual victory box */
+.winner-modal {
+  background-color: white;
+  border: 4px solid black;
+  padding: 3rem 4rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  /* Chunky retro drop-shadow */
+  box-shadow: 12px 12px 0px rgba(0, 0, 0, 1);
+}
+
+/* Styling the text to pop */
+.winner-modal h2 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.winner-modal p {
+  font-size: 1rem;
+  margin: 0;
 }

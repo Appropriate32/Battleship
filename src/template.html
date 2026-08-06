@@ -77,8 +77,20 @@
       </div>
     </main>
     <section class="game-buttons">
-      <button class="nes-btn is-primary place-btn">Place Ships</button>
+      <button class="nes-btn is-primary shuffle-btn">Shuffle Ships</button>
       <button class="nes-btn is-primary play-btn">Play</button>
     </section>
+    <div class="winner-overlay hidden" id="winner-overlay">
+      <div class="winner-modal">
+        <h2 id="winner-text" class="nes-text title"></h2>
+        <p>All enemy ships destroyed.</p>
+        <button
+          class="nes-btn is-primary play-again-btn"
+          onclick="location.reload()"
+        >
+          Play Again
+        </button>
+      </div>
+    </div>
   </body>
 </html>

@@ -3,9 +3,12 @@ class DOMControl {
     this.boardOne = document.querySelector(".board-one");
     this.boardTwo = document.querySelector(".board-two");
     this.playButton = document.querySelector(".play-btn");
-    this.placeButton = document.querySelector(".place-btn");
+    this.shuffleButton = document.querySelector(".shuffle-btn");
+    this.shipsContainer = document.querySelector(".ships-container");
     this.innerContainers = document.querySelectorAll(".inner-container");
     this.spanOptions = document.querySelectorAll(".span-option");
+    this.winnerText = document.querySelector("#winner-text");
+
     this.alreadyClickedContainers = [];
     this.alreadyClickedSpans = [];
     this.selectedOrientation = null;
@@ -59,7 +62,9 @@ class DOMControl {
 
     this.playButton.addEventListener("click", () => {
       if (this.gameboardOne && this.gameboardTwo) {
-        if (this.onPlayClicked) this.onPlayClicked();
+        if (this.onPlayClicked) {
+          this.onPlayClicked();
+        }
       }
     });
 
@@ -137,6 +142,14 @@ class DOMControl {
     this.gameboardTwo = gameboardTwo;
     this.firstRender(this.boardOne);
     this.firstRender(this.boardTwo);
+  }
+
+  removeContainer() {
+    this.shipsContainer.style.display = "none";
+  }
+
+  displayWinner(player) {
+    this.winnerText.textContent = `${player} Wins!`;
   }
 
   setHandoff(callback) {
