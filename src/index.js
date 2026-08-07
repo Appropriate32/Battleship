@@ -43,6 +43,8 @@ class GameController {
     ) {
       this.gameStartFlag = true;
       this.ui.removeContainer();
+      this.shufflePlacement(this.playerTwo.board);
+      this.ui.removeButtons();
     }
   }
 
@@ -107,7 +109,10 @@ class GameController {
       result = board.placeShip(x, y, length, orientation);
 
       if (result !== "Ship already present") {
-        this.ui.renderBoard(displayBoard, board);
+        if (displayBoard !== null) {
+          this.ui.renderBoard(displayBoard, board);
+        }
+
         shipCount.count++;
       }
     }
@@ -123,14 +128,15 @@ class GameController {
     ) {
       let result = this.playerOne.attack(x, y, this.playerTwo.board);
       if (result === "duplicate") return;
-      this.ui.renderBoard(this.ui.boardTwo, this.playerTwo.board);
+      this.ui.renderBoard(this.ui.boardTwo, this.playerTwo.board, true);
       this.checkWinner(this.playerOne, this.playerTwo);
       this.switchTurn();
       if (this.playerTwo.playerType === "computer") {
         setTimeout(() => {
           this.computerAttack();
+          this.checkWinner(this.playerTwo, this.playerOne);
         }, 1500);
-        this.checkWinner(this.playerTwo, this.playerOne);
+
         return;
       }
     } else if (
@@ -156,7 +162,7 @@ class GameController {
     this.switchTurn();
   }
 
-  shufflePlacement(board, displayBoard) {
+  shufflePlacement(board, displayBoard = null) {
     board.resetBoard();
 
     this.shipCountFour.count = 0;

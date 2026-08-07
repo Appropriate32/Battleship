@@ -67,14 +67,6 @@ class DOMControl {
         if (this.onPlayClicked) {
           this.onPlayClicked();
         }
-
-        if (this.onShuffleClicked) {
-          console.log("Hellooo, im shuffling this shi for player 2");
-          this.onShuffleClicked(this.gameboardTwo, this.boardTwo);
-        }
-
-        this.playButton.style.display = "none";
-        this.shuffleButton.style.display = "none";
       }
     });
 
@@ -134,7 +126,7 @@ class DOMControl {
     }
   }
 
-  renderBoard(board, gameBoard) {
+  renderBoard(board, gameBoard, hideShips = false) {
     board.innerHTML = "";
     for (let i = 0; i < 100; i++) {
       const cell = document.createElement("div");
@@ -148,7 +140,7 @@ class DOMControl {
 
       const cellData = gameBoard.grid[x][y];
 
-      if (cellData && cellData.hit) {
+      if (cellData && cellData.hit && !hideShips) {
         cell.classList.add("ship");
       } else if (cellData === "miss") {
         cell.classList.add("miss");
@@ -169,6 +161,11 @@ class DOMControl {
 
   removeContainer() {
     this.shipsContainer.style.display = "none";
+  }
+
+  removeButtons() {
+    this.playButton.style.display = "none";
+    this.shuffleButton.style.display = "none";
   }
 
   displayWinner(player) {

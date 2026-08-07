@@ -21,13 +21,12 @@
       <h1 class="nes-text is-primary title">Battleship</h1>
     </header>
 
-    <main class="body-stuff">
+    <main class="body-stuff nes-container is-dark with-title">
+      <p class="title">Command Center</p>
       <div class="ships-container">
         <h1>Ships</h1>
 
-        <!-- New flex wrapper to align the list and the H/V toggle -->
         <div class="selection-wrapper">
-          <!-- Left column: Just the ships -->
           <div class="ship-list">
             <div class="ship-4">
               <span>4</span>
@@ -64,7 +63,6 @@
             </div>
           </div>
 
-          <!-- Right column: Global Orientation Toggle -->
           <div class="global-orientation">
             <span
               >(<span class="horizontal span-option">H</span> /
@@ -74,8 +72,24 @@
         </div>
       </div>
       <div class="boards">
-        <div class="board-one"></div>
-        <div class="board-two"></div>
+        <div class="board-wrapper">
+          <h3
+            class="nes-text is-primary"
+            style="text-align: center; margin-bottom: 1rem"
+          >
+            Your Fleet
+          </h3>
+          <div class="board-one"></div>
+        </div>
+        <div class="board-wrapper">
+          <h3
+            class="nes-text is-error"
+            style="text-align: center; margin-bottom: 1rem"
+          >
+            Enemy Waters
+          </h3>
+          <div class="board-two"></div>
+        </div>
       </div>
     </main>
     <section class="game-buttons">

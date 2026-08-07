@@ -47,6 +47,11 @@ header {
   background-color: grey;
 }
 
+.board-two .board-cell:hover {
+  background-color: rgba(86, 84, 84, 0.728);
+  cursor: crosshair;
+}
+
 .board-cell {
   border: 1px solid black;
   transition: ease 0.5s background-color;
@@ -73,7 +78,7 @@ header {
 }
 
 .miss {
-  color: red;
+  color: #209cee;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,6 +87,13 @@ header {
 
 .sunk {
   background-color: #5c0000;
+  transition: ease 0.5s transform;
+}
+
+.sunk:hover {
+  background-color: #5c0000;
+  transform: scale(1.07);
+  transform: translateY(-4px);
 }
 
 .game-buttons {
