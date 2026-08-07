@@ -221,3 +221,27 @@ header {
   font-size: 1rem;
   margin: 0;
 }
+
+.mobile-tabs {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  .mobile-hidden {
+    display: none !important;
+  }
+
+  .board-one,
+  .board-two {
+    width: 90vw;
+    max-width: 450px;
+  }
+}

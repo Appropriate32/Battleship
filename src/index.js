@@ -45,6 +45,8 @@ class GameController {
       this.ui.removeContainer();
       this.shufflePlacement(this.playerTwo.board);
       this.ui.removeButtons();
+
+      if (this.ui.tabEnemy) this.ui.tabEnemy.click();
     }
   }
 

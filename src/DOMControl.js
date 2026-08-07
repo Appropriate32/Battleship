@@ -9,6 +9,10 @@ class DOMControl {
     this.spanOptions = document.querySelectorAll(".span-option");
     this.winnerText = document.querySelector("#winner-text");
     this.winnerOverlay = document.querySelector("#winner-overlay");
+    this.tabFleet = document.querySelector("#tab-fleet");
+    this.tabEnemy = document.querySelector("#tab-enemy");
+    this.wrapperOne = document.querySelector("#wrapper-one");
+    this.wrapperTwo = document.querySelector("#wrapper-two");
 
     this.alreadyClickedContainers = [];
     this.alreadyClickedSpans = [];
@@ -108,6 +112,24 @@ class DOMControl {
         }
       }
     });
+
+    if (this.tabFleet && this.tabEnemy) {
+      this.tabFleet.addEventListener("click", () => {
+        this.wrapperOne.classList.remove("mobile-hidden");
+        this.wrapperTwo.classList.add("mobile-hidden");
+
+        this.tabFleet.classList.add("is-primary");
+        this.tabEnemy.classList.remove("is-error");
+      });
+
+      this.tabEnemy.addEventListener("click", () => {
+        this.wrapperTwo.classList.remove("mobile-hidden");
+        this.wrapperOne.classList.add("mobile-hidden");
+
+        this.tabEnemy.classList.add("is-error");
+        this.tabFleet.classList.remove("is-primary");
+      });
+    }
   }
 
   firstRender(board) {
