@@ -23,7 +23,7 @@
 
     <main class="body-stuff nes-container is-dark with-title">
       <p class="title">Command Center</p>
-      <div class="ships-container">
+      <div class="ships-container nes-container is-rounded is-dark">
         <h1>Ships</h1>
 
         <div class="selection-wrapper">
@@ -91,11 +91,12 @@
           <div class="board-two"></div>
         </div>
       </div>
+      <section class="game-buttons">
+        <button class="nes-btn is-primary shuffle-btn">Shuffle Ships</button>
+        <button class="nes-btn is-primary is-success play-btn">Play</button>
+      </section>
     </main>
-    <section class="game-buttons">
-      <button class="nes-btn is-primary shuffle-btn">Shuffle Ships</button>
-      <button class="nes-btn is-primary play-btn">Play</button>
-    </section>
+
     <div class="winner-overlay hidden" id="winner-overlay">
       <div class="winner-modal">
         <h2 id="winner-text" class="nes-text title"></h2>
