@@ -215,9 +215,7 @@ class GameController {
   }
 
   checkWinner(attacker, receiver) {
-    console.log("Just entered checkWinner");
     if (receiver.board.checkAllSunk()) {
-      console.log("All sunk is true!");
       this.ui.displayWinner(attacker.playerType);
     }
   }
